@@ -1,10 +1,13 @@
 class Query:
+    # required
     _columns: list[str]
     _table: str
-    _where_clauses: list[str]
-    _order_by: str
-    _limit: int
-    _offset: int
+    # optional
+    _where_clauses: list[str] | None
+    _order_by: str | None
+    _limit: int | None
+    _offset: int | None
+    # can add more fields as needed
 
     def __init__(self, builder: "Builder") -> None:
         self._columns = builder._columns
@@ -42,6 +45,7 @@ class Query:
             self._limit = None
             self._offset = None
 
+        # for each method, we return the Builder object itself
         def where(self, condition: str) -> "Query.Builder":
             self._where_clauses.append(condition)
             return self
